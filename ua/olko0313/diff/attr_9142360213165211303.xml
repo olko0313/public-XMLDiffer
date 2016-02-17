@@ -1,0 +1,35 @@
+<configuration_item id="9142360213165211303" name="Top Offering" type="nc_attribute">
+    <nc_attribute attr_access_type="0" id="9142360213165211303" name="Top Offering" show_order="0">
+        <attr_type _type_name="ATTR_TYPE_REFERENCE" id="9"/>
+        <attr_type_def _type_def_name="Reference to All" id="6082358712013385533"/>
+        <attr_group _group_name="Order/Instance Parameters" id="9134193845813184150"/>
+        <attr_schema _schema_name="Offering Catalog Schema" id="9125737264713245962"/>
+        <show_history flag="1"/>
+        <flags/>
+        <params/>
+        <bindings>
+            <binding attr_schema_id="9125737264713245962" attr_schema_name="Offering Catalog Schema" object_type_id="9062352550013045461" object_type_name="Order Item">
+                <isdisplayed flag="0"/>
+                <required flag="0"/>
+                <options>
+                    <public_bind/>
+                </options>
+                <flags>
+                    <hidden/>
+                    <read_only/>
+                </flags>
+            </binding>
+            <binding attr_schema_id="9125737264713245962" attr_schema_name="Offering Catalog Schema" object_type_id="9126083628313449001" object_type_name="Business Product Instance">
+                <isdisplayed flag="0"/>
+                <required flag="0"/>
+                <options>
+                    <public_bind/>
+                </options>
+                <flags>
+                    <hidden/>
+                    <read_only/>
+                </flags>
+            </binding>
+        </bindings>
+    </nc_attribute>
+</configuration_item>

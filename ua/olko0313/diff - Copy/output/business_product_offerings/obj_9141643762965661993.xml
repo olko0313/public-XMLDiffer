@@ -1,0 +1,180 @@
+<configuration_item name="PLKI41 - Prepago Firefox" id="9141643762965661993" type="atom_nc_object" parent_id="9128632109113273016" package="com.netcracker.solutions.tfnurg.toms.configuration.offering_catalogue.business_product_offerings" version="1.1">
+    <nc_object name="PLKI41 - Prepago Firefox" id="9141643762965661993" _type="Product Offering" _parent_name="Top Product" parent_id="9128632109113273016" order_number="0">
+        <object_type _type_name="Product Offering" id="9125737315713245976"/>
+        <object_class _type_name="Product Offering" id="9125737315713245976"/>
+        <project _obj_name="Business Offering Catalog (Prod. Ver.)" id="9128632109113273015"/>
+        <param _attr_name="Created By" attr_id="61" attr_access_type="0" priority="1">
+            <value value="sysadm" show_order="1"/>
+        </param>
+        <param _attr_name="Created When" attr_id="62" attr_access_type="0" priority="1">
+            <date_value date_value="2015-06-05 15:40:40.0" show_order="1"/>
+        </param>
+        <param _attr_name="Modified By" attr_id="63" attr_access_type="0" priority="1">
+            <value value="sysadm" show_order="1"/>
+        </param>
+        <param _attr_name="Modified When" attr_id="64" attr_access_type="0" priority="1">
+            <date_value date_value="2015-06-18 08:08:36.0" show_order="1"/>
+        </param>
+        <param _attr_name="Reconciliation ID" attr_id="2000187" attr_access_type="0" priority="0">
+            <value value="1985" show_order="1"/>
+        </param>
+        <param _attr_name="First Time In Applet" attr_id="6072556040013963188" attr_access_type="0" priority="1">
+            <value value="1" show_order="1"/>
+        </param>
+        <param _attr_name="Status" attr_id="7021759771013444983" attr_access_type="0" priority="1">
+            <list_value _list_value="Active" list_value_id="7021759771013444981" show_order="1"/>
+        </param>
+        <param _attr_name="Is Mandatory" attr_id="7021855902013445624" attr_access_type="0" priority="0">
+            <list_value _list_value="True" list_value_id="1" show_order="1"/>
+        </param>
+        <param _attr_name="Configurable" attr_id="9128405069013275773" attr_access_type="0" priority="0">
+            <list_value _list_value="6#80FF00$No" list_value_id="5032957201013871254" show_order="1"/>
+        </param>
+        <param _attr_name="Select Entity Type" attr_id="9132086005513398910" attr_access_type="0" priority="0">
+            <list_value _list_value="Price" list_value_id="9132086005513398908" show_order="1"/>
+        </param>
+        <param _attr_name="One-time Offering" attr_id="9132208363413897051" attr_access_type="0" priority="0">
+            <list_value _list_value="False" list_value_id="8082160850013826948" show_order="1"/>
+        </param>
+        <param _attr_name="Is Top Offer?" attr_id="9132546680213236681" attr_access_type="0" priority="1">
+            <list_value _list_value="Yes" list_value_id="7777001" show_order="1"/>
+        </param>
+        <param _attr_name="Locations Count Min" attr_id="9132693066313055081" attr_access_type="0" priority="0">
+            <value value="1" show_order="1"/>
+        </param>
+        <param _attr_name="Locations Count Max" attr_id="9132693066313055088" attr_access_type="0" priority="0">
+            <value value="1" show_order="1"/>
+        </param>
+        <param _attr_name="Order Item Name Mask(SpEL)" attr_id="9132926165013576678" attr_access_type="0" priority="0">
+            <value value="getReference(new java.math.BigInteger('9125737315713245971')).getName()+' #'+getValue(new java.math.BigInteger('4111244729013810062'))" show_order="1"/>
+        </param>
+        <param _attr_name="Business Product Instance Name Mask(SpEL)" attr_id="9132968413413605305" attr_access_type="0" priority="0">
+            <value value="getValue(new java.math.BigInteger('9125737315713245971')).getName()+' #'+getValue(new java.math.BigInteger('4111244729013810062'))" show_order="1"/>
+        </param>
+        <param _attr_name="Suspendable" attr_id="9135561792813216434" attr_access_type="0" priority="0">
+            <list_value _list_value="Yes" list_value_id="9129780890913876343" show_order="1"/>
+        </param>
+        <param _attr_name="Export to The External System" attr_id="9135696934913322001" attr_access_type="0" priority="0">
+            <list_value _list_value="Yes" list_value_id="7777001" show_order="1"/>
+        </param>
+        <param _attr_name="Offering Type" attr_id="9136528435913512904" attr_access_type="0" priority="0">
+            <list_value _list_value="Singlelocation" list_value_id="9136528435913512906" show_order="1"/>
+        </param>
+        <param _attr_name="Available From" attr_id="9138227703913517703" attr_access_type="0" priority="1">
+            <date_value date_value="1970-01-01 00:00:00.0" show_order="1"/>
+        </param>
+        <param _attr_name="Available To" attr_id="9138228293613517721" attr_access_type="0" priority="1">
+            <date_value date_value="2037-01-01 00:00:00.0" show_order="1"/>
+        </param>
+        <param _attr_name="Start Development" attr_id="9140607596913287913" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Start Testing" attr_id="9140607596913287916" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Finish Testing" attr_id="9140607596913287917" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Activate" attr_id="9140607596913287918" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Release" attr_id="9140607596913287920" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Discontinue" attr_id="9140607596913287921" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Eliminate" attr_id="9140607596913287922" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Archive" attr_id="9140607596913287925" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Cancel" attr_id="9140607596913287926" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Suspend" attr_id="9140616399213299260" attr_access_type="0" priority="1">
+            <value value="['9125737315713245971'].getValue().getName()+' #'+['4111244729013810062'].getStringValue()" show_order="1"/>
+        </param>
+        <param _attr_name="Requires Qflow" attr_id="9141006355613057397" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Requires Engineering Approval" attr_id="9141006355613057404" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Post-Pay" attr_id="9141006398013057416" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Show in OE" attr_id="9141006398013057430" attr_access_type="0" priority="0">
+            <list_value _list_value="Yes" list_value_id="7777001" show_order="1"/>
+        </param>
+        <param _attr_name="Requires Contract" attr_id="9141013248513324525" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Version Number" attr_id="9141910061813858733" attr_access_type="0" priority="0">
+            <value value="1" show_order="1"/>
+        </param>
+        <param _attr_name="Additional activation needed" attr_id="9142408943213687491" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Is AA VAS?" attr_id="9142695128113002148" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="9142695128113002159" show_order="1"/>
+        </param>
+        <param _attr_name="SSPeditable" attr_id="9142892000013851721" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Show in SSP" attr_id="9143142219513613298" attr_access_type="0" priority="0">
+            <list_value _list_value="Yes (PrePagos)" list_value_id="9143479688313535880" show_order="1"/>
+        </param>
+        <param _attr_name="Show in Proposal" attr_id="9143479819113537058" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="In-flight allowed" attr_id="9143618390013606091" attr_access_type="0" priority="0">
+            <list_value _list_value="No" list_value_id="7777002" show_order="1"/>
+        </param>
+        <param _attr_name="Market" attr_id="9132199382713895166" attr_access_type="0" priority="1">
+            <reference _obj_name="Uruguay" reference="9141019842713378412" show_order="1"/>
+        </param>
+        <param _attr_name="Customer Category" attr_id="9132199382713895167" attr_access_type="0" priority="1">
+            <reference _obj_name="Empresas - Grandes Empresas" reference="9141019958013378527" show_order="1"/>
+            <reference _obj_name="Empresas - Microempresas" reference="9141020036013378551" show_order="2"/>
+            <reference _obj_name="Empresas - Pymes A" reference="9141484953913444181" show_order="3"/>
+            <reference _obj_name="Empresas - Pymes B" reference="9141484953913444182" show_order="4"/>
+            <reference _obj_name="Empresas - Agentes y Distribuidores" reference="9142514728713581232" show_order="5"/>
+            <reference _obj_name="Empresas - Canje" reference="9142514728713581236" show_order="6"/>
+            <reference _obj_name="Empresas - Gobierno" reference="9142514728713581235" show_order="7"/>
+            <reference _obj_name="Empresas - Uso interno" reference="9142514728713581237" show_order="8"/>
+            <reference _obj_name="Particulares - Alto Valor" reference="9141019958013378514" show_order="9"/>
+            <reference _obj_name="Particulares - Canje" reference="9142514728713581233" show_order="10"/>
+            <reference _obj_name="Particulares - Empleados" reference="9142514728713581234" show_order="11"/>
+            <reference _obj_name="Particulares - Gobierno" reference="9142477157113348131" show_order="12"/>
+            <reference _obj_name="Particulares - Uso interno" reference="9142477157113348130" show_order="13"/>
+            <reference _obj_name="Particulares - Valor" reference="9141019958013378508" show_order="14"/>
+            <reference _obj_name="Particulares - VIP/TOP" reference="9141019958013378522" show_order="15"/>
+            <reference _obj_name="Para pre-activación" reference="9142910119113835351" show_order="16"/>
+        </param>
+        <param _attr_name="Distribution Channel" attr_id="9132199382713895168" attr_access_type="0" priority="1">
+            <reference _obj_name="AGENTES ESPECIALISTAS" reference="9141019958013378470" show_order="1"/>
+            <reference _obj_name="CALL CENTER" reference="9141511228713548348" show_order="2"/>
+            <reference _obj_name="TIENDAS PROPIAS" reference="9141019958013378458" show_order="3"/>
+            <reference _obj_name="EJECUTIVOS/VENDEDORES" reference="9141019958013378475" show_order="4"/>
+            <reference _obj_name="TELEMARKETING" reference="9141019958013378481" show_order="5"/>
+            <reference _obj_name="RETAILS/DISTRIBUIDORES" reference="9141019958013378486" show_order="6"/>
+        </param>
+        <param _attr_name="Can be Upgraded To" attr_id="9135697576213471030">
+            <reference _obj_name="PrePagos" reference="9141506341265440734" show_order="1"/>
+            <reference _obj_name="Cuenta Controlada" reference="9142197924365738340" show_order="2"/>
+            <reference _obj_name="Regulares" reference="9141877482365656914" show_order="3"/>
+            <reference _obj_name="Retención" reference="9142914416565152266" show_order="4"/>
+        </param>
+        <param _attr_name="Can be Downgraded To" attr_id="9135697576213471033">
+            <reference _obj_name="PrePagos" reference="9141506341265440734" show_order="1"/>
+        </param>
+        <param _attr_name="Billing Specification" attr_id="9140589500013518410" attr_access_type="0" priority="1">
+            <reference _obj_name="TLO Subscription" reference="9141583875665126458" show_order="1"/>
+        </param>
+        <param _attr_name="Initial Product Offering" attr_id="9141910061813858722" attr_access_type="0" priority="0">
+            <reference _obj_name="PLKI41 - Prepago Firefox" reference="9141643762965661993" show_order="1"/>
+        </param>
+    </nc_object>
+</configuration_item>
