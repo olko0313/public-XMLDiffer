@@ -13,10 +13,24 @@ fadded = []
 fmiss = []
 faccordance = []
 tree = etree.ElementTree
+stat = {}
 
 def xml_compare(x1, x2,path):
-    global tree, filename,xpath,SCMPackage,ObjectID,Name,FromTemplate,Typeofchange,ChangedAttrID,ChangedAttrName,OldValue,OldID,NewValue,NewID
+    global tree,stat, filename,xpath,SCMPackage,ObjectID,Name,FromTemplate,Typeofchange,ChangedAttrID,ChangedAttrName,OldValue,OldID,NewValue,NewID
     lxpath = path+x1.tag+'/'
+    print 'y'
+    if x1.tag in stat.keys():
+        print 'x'
+        for x in x1.attrib:
+            flag = False
+            for q in stat.get(x1.tag):
+                if q == x:
+                    flag = True
+            if not flag:
+                stat.get(x1.tag).append(x)
+    else:
+        print 'x'
+        stat[x1.tag] = x1.attrib
     if x1.tag != x2.tag:
         print('Tags do not match: %s and %s' % (x1.tag, x2.tag))
     ChangedAttrName = x1.tag
@@ -174,10 +188,10 @@ if __name__ == '__main__':
             fdiff.append(f)
         else:
             fadded.append(f)
-    print('New files')
+    ''' print('New files')
     for x in fadded:
         print(x)
-    print(' ')
+    print(' ')'''
     for x in fdiff:
         tree1 = etree.parse(dir_1+x)
         tree2 = etree.parse(dir_2+x)
@@ -196,4 +210,6 @@ if __name__ == '__main__':
         NewValue = ''    
         NewID = ''
         xml_compare(tree1.getroot(), tree2.getroot(),'')
+        for x in stat:
+            print x
     excelFile.save()
