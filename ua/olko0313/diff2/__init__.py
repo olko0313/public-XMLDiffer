@@ -5,7 +5,8 @@ from lxml import etree
 import ConfigParser
 
 def log(message):
-    print message
+    #print message
+    excelFile.write()
     return True
 
 
@@ -45,7 +46,10 @@ def generateKey(x):
     elif tag == 'configuration_item':
         key = tag+'[@id="'+x.attrib['id']+'"]'
     elif tag == 'list_value':
-        key = tag+'[@list_value_id="'+x.attrib['list_value_id']+'"]'
+        if 'list_values' == x.getparent().tag:
+            key = tag+'[@id="'+x.attrib['id']+'"]'
+        else:
+            key = tag+'[@list_value_id="'+x.attrib['list_value_id']+'"]'
     elif tag == 'value':
         key = tag+'[@value="'+x.attrib['value']+'"]'
     elif tag == 'date_value':
@@ -76,19 +80,115 @@ def generateKey(x):
         key = tag+'[@id="'+x.attrib['id']+'"]'
     else:
         key = '//'+tag
-    return key
+    return '//'+key
+
+def prepareFilds(x,x2):
+    tag = x.tag
+    excelFile.tag = tag
+    if tag == 'project':
+        excelFile.changedAttrID = ''
+        excelFile.changedAttrName = tag
+    elif tag == 'reference':
+        excelFile.NewID = x.attrib['reference']
+        excelFile.NewValue = x.attrib['_obj_name']
+    elif tag == 'external_item':
+        excelFile.changedAttrID = ''
+        excelFile.changedAttrName = tag
+    elif tag == 'object_type':
+        excelFile.changedAttrID = ''
+        excelFile.changedAttrName = tag
+    elif tag == 'param':
+        excelFile.changedAttrID = x.attrib['attr_id']
+        excelFile.changedAttrName = x.attrib['_attr_name']
+    elif tag == 'nc_object':
+        excelFile.ObjectID = x.attrib['id']
+        excelFile.Name = x.attrib['name']
+    elif tag == 'configuration_item':
+        if x.attrib.get('type') not in ['nc_attribute','nc_attr_type_def']:
+            excelFile.SCMPackage = x.attrib['package']
+    elif tag == 'list_value':
+        excelFile.NewID = x.attrib['list_value_id']
+        excelFile.NewValue = x.attrib['_list_value']
+    elif tag == 'value':
+        excelFile.NewID = ''
+        excelFile.NewValue = x.attrib['value']
+    elif tag == 'date_value':
+        excelFile.NewID = ''
+        excelFile.NewValue = x.attrib['date_value']
+    elif tag == 'object_class':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['_type_name']
+    elif tag == 'binding':
+        excelFile.changedAttrID = x.attrib['object_type_id']
+        excelFile.changedAttrName = x.attrib['object_type_name']
+    elif tag == 'attr_type_def':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['_type_def_name']
+    elif tag == 'isdisplayed':
+        excelFile.changedAttrID =''
+        excelFile.changedAttrName = tag
+    elif tag == 'show_history':
+        excelFile.changedAttrID =''
+        excelFile.changedAttrName = tag
+    elif tag == 'nc_attribute':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['name']
+    elif tag == 'nc_attr_type_def':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['name']
+    elif tag == 'attr_group':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['_group_name']
+    elif tag == 'required':
+        excelFile.changedAttrID =''
+        excelFile.changedAttrName = tag
+    elif tag == 'attr_type':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['_type_name']
+    elif tag == 'meta_reference':
+        excelFile.changedAttrID = x.attrib['ref_attr_id']
+        excelFile.changedAttrName = x.attrib['_ref_attr_name']
+    elif tag == 'attr_schema':
+        excelFile.changedAttrID = x.attrib['id']
+        excelFile.changedAttrName = x.attrib['_schema_name']
+    else:
+        excelFile.changedAttrName = tag
+
 
 def compareXMLasText(x1,x2):
     return etree.tostring(x1) == etree.tostring(x2)
 
 def compareXMLasElements(x1,x2):
+    if 'operation' in x1.attrib.keys():
+        excelFile.changedAttribute = 'operation'
+        excelFile.NewValue = x1.attrib.get('operation')
+        excelFile.Typeofchange = 'update/delete'
+        excelFile.xmlPart = etree.tostring(x1)
+        log('')
+        return True
+    prepareFilds(x1,x2)
     if not compareXMLasText(x1, x2):
         if x1.tag != x2.tag:
             log('Tags do not match: %s and %s' % (x1.tag, x2.tag))
         for name, value in x1.attrib.items():
-            if x2.attrib.get(name) != value:
+            if name in x2.attrib.keys():
+                if x2.attrib.get(name) != value:
+                    print name
+                    excelFile.NewValue = value
+                    excelFile.changedAttribute = name
+                    excelFile.OldValue = x2.attrib.get(name)
+                    excelFile.Typeofchange = 'update'
+                    excelFile.xmlPart = etree.tostring(x1)
+                    log('Attributes do not match: %s=%r, %s=%r'
+                             % (name, value, name, x2.attrib.get(name)))
+            else:
+                excelFile.NewValue = value
+                excelFile.changedAttribute = name
+                excelFile.Typeofchange = 'add'
+                excelFile.xmlPart = etree.tostring(x1)
                 log('Attributes do not match: %s=%r, %s=%r'
                          % (name, value, name, x2.attrib.get(name)))
+            
         for name, value in x2.attrib.items():
             if name not in x1.attrib:
                 log('Attribute deleted: %s=%r'
@@ -97,13 +197,30 @@ def compareXMLasElements(x1,x2):
         chs2 = x2.getchildren()
         if len(chs1) == len(chs2) == 1:
             compareXMLasElements(chs1[0],chs2[0])
-        else: 
+        else:
             chsk1 = []
-            chsk2 = []
+            chsk2 = [] 
+            nuse = []
+            nuse2 = []
             for x in chs1:
-                chsk1.append(generateKey(x))
+                if len(x.xpath('../'+x.tag)) == len(chs2[0].xpath('../'+x.tag)) == 1:
+                    q = generateKey(x2)+'/'+x.tag
+                    nuse.append(x)
+                    nuse2.append(chs2[0].xpath('../'+x.tag)[0])
+                    if 'configuration_item' in q:
+                        q = '/'+q
+                    else:
+                        q = '//'+q
+                    chsk1.append(q)
+                    chsk2.append(q)
+            
+            for x in chs1:
+                if x not in nuse:
+                    chsk1.append(generateKey(x))
+
             for x in chs2:
-                chsk2.append(generateKey(x))
+                if x not in nuse2:
+                    chsk2.append(generateKey(x))
             ea = []
             em = []
             ec = []
@@ -116,10 +233,21 @@ def compareXMLasElements(x1,x2):
                 if x not in ec:
                     em.append(x)
             for x in ea:
+                excelFile.xpath = x
+                excelFile.Typeofchange = 'add'
+                excelFile.xmlPart = etree.tostring(x1)
+                excelFile.tag = x1.tag
                 log('Element added: %s=%s'% (x1.xpath(x)[0].tag, etree.tostring(x1.xpath(x)[0])))
             for x in em:
+                prepareFilds(x2.xpath(x)[0], x2.xpath(x)[0])
+                excelFile.xpath = x
+                excelFile.Typeofchange = 'delete'
+                excelFile.xmlPart = etree.tostring(x2)
+                excelFile.tag = x2.xpath(x)[0].tag
                 log('Element deleted: %s=%s'% (x2.xpath(x)[0].tag, etree.tostring(x2.xpath(x)[0])))
             for x in ec:
+                excelFile.xpath = x
+                print x
                 compareXMLasElements(x1.xpath(x)[0], x2.xpath(x)[0])
     
 
@@ -135,6 +263,7 @@ def dirsDiff(dir1,dir2):
             else:
                 fadded.append(fpath)
     return fdiff,fadded
+    
 
 if __name__ == '__main__':
     excelFile = ExcelWriter()
@@ -142,48 +271,24 @@ if __name__ == '__main__':
     configParser.read('XMLDiff.properties')
     dir1 = configParser.get('Folders', 'dir_1')
     dir2 = configParser.get('Folders', 'dir_2')
-    #fdiff,fadded = dirsDiff(dir1,dir2)
-    #for x in fadded:
-    #    log('File added: %s'% (x))
-    '''
+    
+    fdiff,fadded = dirsDiff(dir1,dir2)
+    for x in fadded:
+        log('File added: %s'% (x))
+    
     for x in fdiff:
-        x = price_value\42\obj_9142862208565599942.xml
+        print x
         tree1 = etree.parse(os.path.join(dir1,x))
         tree2 = etree.parse(os.path.join(dir2,x))
+        excelFile.cleareFields()
+        excelFile.filename = x
         compareXMLasElements(tree1.getroot(), tree2.getroot())
     '''
-    x = r'price_value\42\obj_9142862208565599942.xml'
+    x = r'billing_specification\obj_9142740953965572511.xml'
     tree1 = etree.parse(os.path.join(dir1,x))
     tree2 = etree.parse(os.path.join(dir2,x))
+    excelFile.cleareFields()
+    excelFile.filename = x
     compareXMLasElements(tree1.getroot(), tree2.getroot())
-    
-   
-        
-        #print x.tag + x.attrib.__str__()
-    ''' print('New files')
-    for x in fadded:
-        print(x)
-    print(' ')
-
-     for x in fdiff:
-        tree1 = etree.parse(dir_1+x)
-        tree2 = etree.parse(dir_2+x)
-        tree = tree1
-        filename = x
-        xpath = ''
-        SCMPackage = ''
-        ObjectID = ''
-        Name = ''
-        FromTemplate = ''    
-        Typeofchange = ''
-        ChangedAttrID = ''
-        ChangedAttrName = '' 
-        OldValue = ''
-        OldID = ''
-        NewValue = ''    
-        NewID = ''
     '''
-        #xml_compare(tree1.getroot(), tree2.getroot(),'')
-        #for x in stat:
-        #    print x
     excelFile.save()

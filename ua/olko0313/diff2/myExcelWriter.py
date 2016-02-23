@@ -15,12 +15,27 @@ class ExcelWriter(object):
     '''
     classdocs
     '''
-    outputfile = 'detailed_change.xls'
+    outputfile = 'detailed_changes.xls'
     wb = xlwt.Workbook
     font0 = xlwt.Font
     style0 = xlwt.Style
     ws = xlwt.Worksheet
     line = 0
+    filename = ''
+    xpath = ''
+    SCMPackage = ''
+    ObjectID = ''
+    Name = ''    
+    Typeofchange = ''
+    changedAttrID = ''
+    changedAttrName = ''
+    changedAttribute = '' 
+    OldValue = ''
+    OldID = ''
+    NewValue = ''    
+    NewID = ''
+    xmlPart = ''
+    tag = ''
 
     def __init__(self):
         '''
@@ -37,41 +52,75 @@ class ExcelWriter(object):
         self.wb = xlwt.Workbook()
         print 'init'
         self.ws = self.wb.add_sheet('Detailed changes')
-        self.ws.write(self.line,0,'SCM Package')
-        self.ws.write(self.line,1,'Object ID')
-        self.ws.write(self.line,2,'Name')
-        self.ws.write(self.line,3,'From Template')
-        self.ws.write(self.line,4,'Type of change')
-        self.ws.write(self.line,5,'Changed Attr ID')
-        self.ws.write(self.line,6,'Changed Attr Name')
-        self.ws.write(self.line,7,'Old Value')
-        self.ws.write(self.line,8,'Old ID')
-        self.ws.write(self.line,9,'New Value')
-        self.ws.write(self.line,10,'New ID')
-        self.ws.write(self.line,11,'xpath')
-        self.ws.write(self.line,12,'FilePath')
-        self.ws.write(self.line,13,'for added')
+        self.ws.write(self.line,0,'filename')
+        self.ws.write(self.line,1,'xpath')
+        self.ws.write(self.line,2,'SCMPackage')
+        self.ws.write(self.line,3,'ObjectID')
+        self.ws.write(self.line,4,'Name')
+        self.ws.write(self.line,5,'Type of change')
+        self.ws.write(self.line,6,'Tag')
+        self.ws.write(self.line,7,'Changed Attr ID')
+        self.ws.write(self.line,8,'Changed Attr Name')
+        self.ws.write(self.line,9,'changedAttribute')
+        self.ws.write(self.line,10,'Old Value')
+        self.ws.write(self.line,11,'Old ID')
+        self.ws.write(self.line,12,'New Value')
+        self.ws.write(self.line,13,'New ID')
+        self.ws.write(self.line,14,'Filter')
+        self.ws.write(self.line,15,'xmlPart')
         self.line = self.line+1
         
-                                                
+    def cleareFields(self):
+        self.filename = ''
+        self.xpath = ''
+        self.SCMPackage = ''
+        self.ObjectID = ''
+        self.Name = ''    
+        self.Typeofchange = ''
+        self.changedAttrID = ''
+        self.changedAttrName = ''
+        self.changedAttribute = '' 
+        self.OldValue = ''
+        self.OldID = ''
+        self.NewValue = ''    
+        self.NewID = ''
+        self.xmlPart = ''
+        self.tag = ''                                          
 
+    def showfields(self):
+        print self.filename
+        print self.xpath
+        print self.SCMPackage
+        print self.ObjectID
+        print self.Name    
+        print self.Typeofchange
+        print self.changedAttrID
+        print self.changedAttrName
+        print self.changedAttribute 
+        print self.OldValue
+        print self.OldID
+        print self.NewValue    
+        print self.NewID
+        print self.xmlPart  
+        
     
-    def write(self,vset=()):
-        print 'write'
-        self.ws.write(self.line,0,vset[0])
-        self.ws.write(self.line,1,vset[1])
-        self.ws.write(self.line,2,vset[2])
-        self.ws.write(self.line,3,vset[3])
-        self.ws.write(self.line,4,vset[4])
-        self.ws.write(self.line,5,vset[5])
-        self.ws.write(self.line,6,vset[6])
-        self.ws.write(self.line,7,vset[7])
-        self.ws.write(self.line,8,vset[8])
-        self.ws.write(self.line,9,vset[9])
-        self.ws.write(self.line,10,vset[10])
-        self.ws.write(self.line,11,vset[11])
-        self.ws.write(self.line,12,vset[12])
-        self.ws.write(self.line,13,vset[13])
+    def write(self):
+        self.ws.write(self.line,0,self.filename)
+        self.ws.write(self.line,1,self.xpath)
+        self.ws.write(self.line,2,self.SCMPackage)
+        self.ws.write(self.line,3,self.ObjectID)
+        self.ws.write(self.line,4,self.Name)
+        self.ws.write(self.line,5,self.Typeofchange)
+        self.ws.write(self.line,6,self.tag)
+        self.ws.write(self.line,7,self.changedAttrID)
+        self.ws.write(self.line,8,self.changedAttrName)
+        self.ws.write(self.line,9,self.changedAttribute)
+        self.ws.write(self.line,10,self.OldValue)
+        self.ws.write(self.line,11,self.OldID)
+        self.ws.write(self.line,12,self.NewValue)
+        self.ws.write(self.line,13,self.NewID)
+        self.ws.write(self.line,14,'')
+        self.ws.write(self.line,15,self.xmlPart)
         self.line = self.line+1
         
     def save(self):
@@ -99,8 +148,28 @@ class XMLWriter(object):
     def add(self,filename,xpath,element):
         print 'add'
         
-    def remove(self,filename,xpath,atrName):
+    def remove(self,fileName,xpath,atrName):
         print 'remove'
+        tree = etree.ElementTree
+        if self.fileexists(fileName):
+            tree = etree.parse(fileName[fileName.index('\\')+1:])
+        else:
+            tree = etree.parse(self.dir+fileName)
+        print xpath
+        print fileName
+        x = tree.xpath(xpath)[0]
+        x.getparent().remove(x)
+        print 'res\\'+fileName[0:fileName.index('obj_')]
+        try:
+            os.makedirs('res\\'+fileName[0:fileName.index('obj_')])
+        except WindowsError:
+            print 'sss'
+        test = etree.tostring(tree, encoding="UTF-8")
+        f = open('res\\'+fileName, 'a+') 
+        f.write(test)
+        f.close()
+        tree.write_c14n(self.dir+fileName)
+        
     def change(self,fileName,xpath,newvalue,atrName):
         print 'change'
         tree = etree.ElementTree
@@ -108,22 +177,23 @@ class XMLWriter(object):
             tree = etree.parse(fileName[fileName.index('\\')+1:])
         else:
             tree = etree.parse(self.dir+fileName)
-        test = etree.tostring(tree, encoding="UTF-8")
-        atr = atrName[atrName.index('(')+1:atrName.index(')')]
-        tree.xpath(xpath)[0].attrib[atr] = newvalue
+        
+        print newvalue
+        tree.xpath(xpath)[0].attrib[atrName] = newvalue
         try:
             os.makedirs('res\\'+fileName[0:fileName.index('\\')])
         except WindowsError:
             print 'sss'
-            
+        test = etree.tostring(tree, encoding="UTF-8")
         f = open('res\\'+fileName, 'w') 
         f.write(test)
         f.close()
-        #tree.write_c14n(self.dir+fileName)
+        tree.write_c14n(self.dir+fileName)
+
         
         
 class ExcelReader(object):
-    inputfile = 'detailed_change.xls'
+    inputfile = 'detailed_changes.xls'
     rb = xlrd.Book
     sheet = xlrd.sheet
     xmlWriter = XMLWriter()
@@ -135,14 +205,17 @@ class ExcelReader(object):
     
     def read(self):
         for rownum in range(self.sheet.nrows):
-            row = self.sheet.row_values(rownum) 
-            if row[4] == 'added':
-                self.xmlWriter.add(row[12], row[11], row[13])
-            elif row[4] == 'miss':
-                self.xmlWriter.remove(row[12], row[11],row[6])
-            elif row[4] == 'updated':
-                self.xmlWriter.change(row[12], row[11], row[9],row[6])
-            #print self.sheet.row_values(rownum) 
+            row = self.sheet.row_values(rownum)
+            if row[14] != '':
+                type = row[5] 
+                print row[1]
+                if type == 'add':
+                    self.xmlWriter.add(row[1], row[2], row[10])
+                elif type == 'delete':
+                    self.xmlWriter.remove(row[0], row[1],row[9])
+                elif type == 'update':
+                    self.xmlWriter.change(row[0], row[1], row[12], row[9])
+                #print self.sheet.row_values(rownum) 
                     
         
         
